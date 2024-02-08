@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 
+#include "fibonacci.c"
 #include <X11/XF86keysym.h>
 /* appearance */
 static const unsigned int gappx = 10;   /* gaps between windows */
@@ -40,7 +41,7 @@ static const Layout layouts[] = {
     /* symbol     arrange function */
     {"[]=", tile}, /* first entry is default */
     {"><>", NULL}, /* no layout function means floating behavior */
-    {"[M]", monocle},
+    {"[M]", monocle}, {"[@]", spiral}, {"[\\]", dwindle},
 };
 
 /* key definitions */
@@ -66,6 +67,7 @@ static const char *dmenucmd[] = {"dmenu_run", "-m",      dmenumon,
 static const char *termcmd[] = {"st", NULL};
 
 static const char *browser[] = {"librewolf", NULL};
+
 static const char *up_vol[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@",
                                "+10%", NULL};
 static const char *down_vol[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@",
@@ -73,13 +75,17 @@ static const char *down_vol[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@",
 static const char *mute_vol[] = {"pactl", "set-sink-mute", "@DEFAULT_SINK@",
                                  "toggle", NULL};
 static const char *brighter[] = {"brightnessctl", "set", "10%+", NULL};
+
 static const char *dimmer[] = {"brightnessctl", "set", "10%-", NULL};
+
+static const char *pavucontrol[] = {"pavucontrol", NULL};
 
 static const Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY, XK_p, spawn, {.v = dmenucmd}},
     {MODKEY | ShiftMask, XK_e, spawn, {.v = browser}},
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = termcmd}},
+    {MODKEY, XK_v, spawn, {.v = pavucontrol}},
     {0, XF86XK_AudioMute, spawn, {.v = mute_vol}},
     {0, XF86XK_AudioLowerVolume, spawn, {.v = down_vol}},
     {0, XF86XK_AudioRaiseVolume, spawn, {.v = up_vol}},
@@ -109,6 +115,8 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
     {MODKEY, XK_minus, setgaps, {.i = -1}},
     {MODKEY, XK_equal, setgaps, {.i = +1}},
+    {MODKEY, XK_r, setlayout, {.v = &layouts[3]}},
+    {MODKEY | ShiftMask, XK_r, setlayout, {.v = &layouts[4]}},
     {MODKEY | ShiftMask, XK_equal, setgaps, {.i = 0}},
     TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
         TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
