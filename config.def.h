@@ -8,8 +8,8 @@ static const unsigned int borderpx = 3; /* border pixel of windows */
 static const unsigned int snap = 32;    /* snap pixel */
 static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
-static const char *fonts[] = {"Jetbrains Mono:size=10"};
-static const char dmenufont[] = "Jetbrains Mono:size=10";
+static const char *fonts[] = {"Jetbrains Mono:size=12"};
+static const char dmenufont[] = "Jetbrains Mono:size=12";
 static const char *colors[][3] = {
     /*               fg         bg         border   */
     [SchemeNorm] = {"#a89984", "#32302f", "#32302f"},
@@ -80,10 +80,13 @@ static const char *dimmer[] = {"brightnessctl", "set", "10%-", NULL};
 
 static const char *pavucontrol[] = {"pavucontrol", NULL};
 
+static const char *shutdown[] = {"shutdown_mgr", NULL};
+
 static const Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY, XK_p, spawn, {.v = dmenucmd}},
     {MODKEY | ShiftMask, XK_e, spawn, {.v = browser}},
+    {MODKEY | ShiftMask, XK_x, spawn, {.v = shutdown}},
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, XK_v, spawn, {.v = pavucontrol}},
     {0, XF86XK_AudioMute, spawn, {.v = mute_vol}},
